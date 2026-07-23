@@ -9,6 +9,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Save the Date · Chantal & Pascal" />
 <meta property="og:description" content="Wir heiraten am 29. Mai 2027 — merkt euch schon mal das Datum vor!" />
+<meta property="og:image" content="https://pascal19991114.github.io/og-savethedate.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://pascal19991114.github.io/og-savethedate.jpg" />
 <meta name="apple-mobile-web-app-title" content="Chantal & Pascal" />
 <meta name="theme-color" content="#F5F1E8" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23F5F1E8' stroke='%237E8C6A' stroke-width='3'/%3E%3Ctext x='50' y='63' font-family='Georgia,serif' font-size='38' text-anchor='middle' fill='%232B3226'%3EC%26P%3C/text%3E%3C/svg%3E" />
@@ -178,7 +183,7 @@ img{ max-width:100%; display:block; }
     <div class="section-label">Schon vormerken</div>
     <div class="cal-buttons">
       <a id="gcalBtn" class="cal-btn" target="_blank" rel="noopener">📅 Zu Google Kalender</a>
-      <a id="icsBtn" class="cal-btn cal-btn--outline" download="SaveTheDate.ics">🍎 Zu Apple / Outlook</a>
+      <a id="icsBtn" class="cal-btn cal-btn--outline">🍎 Zu Apple / Outlook</a>
     </div>
     <p class="cal-note">Ganztägig vorgemerkt — Uhrzeit und Ort folgen mit der Einladung.</p>
   </div>
@@ -294,10 +299,9 @@ $("heroDate").textContent = CONFIG.datumText;
     `DESCRIPTION:${details}`,
     "END:VEVENT","END:VCALENDAR",
   ].join("\r\n");
-  const blob = new Blob([ics], { type:"text/calendar;charset=utf-8" });
-  const icsBtn = $("icsBtn");
-  icsBtn.href = URL.createObjectURL(blob);
-  icsBtn.download = `SaveTheDate-${CONFIG.braut}-${CONFIG.braeutigam}.ics`;
+  // Data-URI statt Blob: auf dem iPhone öffnet Safari damit direkt den
+  // "Zum Kalender hinzufügen"-Dialog, statt nur eine Datei herunterzuladen.
+  $("icsBtn").href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
 })();
 </script>
 </body>
